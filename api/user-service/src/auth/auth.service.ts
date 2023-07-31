@@ -39,4 +39,14 @@ export class AuthService {
 
     return data;
   }
+
+  googleLogin(req: any) {
+    if (!req.user) {
+      return 'No user from Google';
+    }
+    return {
+      message: 'User info from Google',
+      user: req.user,
+    };
+  }
 }
