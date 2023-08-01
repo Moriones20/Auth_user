@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { hash, compare } from 'bcrypt';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
+import { SocialAuthDto } from './dto/social-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,9 @@ export class AuthService {
     const checkPassword = await compare(password, findUser.password);
     if (!checkPassword) throw new HttpException('PASSWORD_INVALID', 403);
 
-    const payload = { id: findUser._id, name: findUser.name };
+    const payload = { id: findUser._id.toString(), name: findUser.name };
+    console.log(process.env.SECRET_SEED);
+
     const token = this.jwtService.sign(payload);
 
     const data = {
@@ -38,5 +41,33 @@ export class AuthService {
     };
 
     return data;
+  }
+
+  async registerSocial(SocialAuthDto: SocialAuthDto) {
+    const { email, name, provider } = SocialAuthDto;
+
+    const existingUser = await this.userModel.findOne({ email });
+    if (existingUser) {
+      const payload = {
+        id: existingUser._id.toString(),
+        name: existingUser.name,
+      };
+      const token = this.jwtService.sign(payload);
+
+      return { user: SocialAuthDto, token };
+    }
+
+    const newUser = new this.userModel({
+      email,
+      name,
+      provider,
+    });
+
+    await newUser.save();
+
+    const payload = { id: newUser._id.toString(), name: newUser.name };
+    const token = this.jwtService.sign(payload);
+
+    return { user: newUser, token };
   }
 }
