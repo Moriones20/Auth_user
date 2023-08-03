@@ -4,24 +4,14 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { HomeComponent } from './components/home/home.component';
+import { SocialCallbackComponent } from './components/social-callback/social-callback.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LandingComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
+  { path: '', component: LandingComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'login/callback', component: SocialCallbackComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent },
 ];
 
 @NgModule({

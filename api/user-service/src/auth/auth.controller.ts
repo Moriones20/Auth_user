@@ -1,4 +1,12 @@
-import { Controller, Post, Body, UseGuards, Req, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Req,
+  Get,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
@@ -28,15 +36,17 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req: any) {
+  async googleAuthRedirect(@Req() req: any, @Res() res: any) {
     const socialAuth: SocialAuthDto = {
       email: req.user.email,
       name: req.user.name,
       provider: 'google',
     };
 
-    const { user, token } = await this.authService.registerSocial(socialAuth);
-    return { user, token };
+    const { token } = await this.authService.registerSocial(socialAuth);
+    if (token)
+      res.redirect('http://localhost:4200/login/callback/?jwt=' + token);
+    else res.redirect('http://localhost:4200/login/failure');
   }
 
   @Get('facebook')
@@ -46,13 +56,15 @@ export class AuthController {
 
   @Get('facebook/callback')
   @UseGuards(AuthGuard('facebook'))
-  async facebookAuthRedirect(@Req() req: any) {
+  async facebookAuthRedirect(@Req() req: any, @Res() res: any) {
     const socialAuth: SocialAuthDto = {
       email: req.user.email,
       name: req.user.name,
       provider: 'facebook',
     };
-    const { user, token } = await this.authService.registerSocial(socialAuth);
-    return { user, token };
+    const { token } = await this.authService.registerSocial(socialAuth);
+    if (token)
+      res.redirect('http://localhost:4200/login/callback/?jwt=' + token);
+    else res.redirect('http://localhost:4200/login/failure');
   }
 }
