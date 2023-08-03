@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/users/schema/user.schema';
@@ -16,19 +16,47 @@ export class AuthService {
   ) {}
 
   async register(registerAuthDto: RegisterAuthDto) {
-    const { password } = registerAuthDto;
+    const { name, email, password } = registerAuthDto;
+
+    if (!name || !email || !password) {
+      throw new HttpException(
+        'Missing required fields',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const findUser = await this.userModel.findOne({ email });
+    if (findUser) {
+      throw new HttpException('User already registered', HttpStatus.CONFLICT);
+    }
+
     const plainToHash = await hash(password, 10);
-    registerAuthDto = { ...registerAuthDto, password: plainToHash };
-    return this.userModel.create(registerAuthDto);
+    const userRegistered = await this.userModel.create({
+      name,
+      email,
+      password: plainToHash,
+    });
+
+    const userWithoutPassword = { ...userRegistered.toObject() };
+    delete userWithoutPassword.password;
+
+    return {
+      statusCode: HttpStatus.CREATED,
+      message: 'Registration successful',
+      user: userWithoutPassword,
+    };
   }
 
   async login(loginAuthDto: LoginAuthDto) {
     const { email, password } = loginAuthDto;
     const findUser = await this.userModel.findOne({ email });
-    if (!findUser) throw new HttpException('USER_NOT_FOUND', 404);
+    if (!findUser) throw new HttpException('User not found', 404);
 
     const checkPassword = await compare(password, findUser.password);
-    if (!checkPassword) throw new HttpException('PASSWORD_INVALID', 403);
+    if (!checkPassword) throw new HttpException('Password invalid', 403);
+
+    const userWithoutPassword = { ...findUser.toObject() };
+    delete userWithoutPassword.password;
 
     const payload = { id: findUser._id.toString(), name: findUser.name };
     console.log(process.env.SECRET_SEED);
@@ -36,7 +64,7 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     const data = {
-      user: findUser,
+      user: userWithoutPassword,
       token,
     };
 
@@ -54,7 +82,7 @@ export class AuthService {
       };
       const token = this.jwtService.sign(payload);
 
-      return { user: SocialAuthDto, token };
+      return { token };
     }
 
     const newUser = new this.userModel({
@@ -68,6 +96,6 @@ export class AuthService {
     const payload = { id: newUser._id.toString(), name: newUser.name };
     const token = this.jwtService.sign(payload);
 
-    return { user: newUser, token };
+    return { token };
   }
 }

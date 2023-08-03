@@ -8,6 +8,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SocialCallbackComponent } from './components/social-callback/social-callback.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +20,14 @@ import { LandingComponent } from './components/landing/landing.component';
     RegisterComponent,
     HomeComponent,
     LandingComponent,
+    SocialCallbackComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
