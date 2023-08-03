@@ -1,0 +1,48 @@
+<div class="container mt-5 col-5">
+  <div class="card login-card bg-dark shadow">
+    <div class="card-body">
+      <form action="/register" method="post" class="col d-flex flex-column">
+        <h2 class="card-title text-center text-light">Registro</h2>
+
+        <div>
+          <label for="name" class="form-label">Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Nombre"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="email" class="form-label">Email:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Contraseña"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+      </form>
+    </div>
+  </div>
+</div>
+
