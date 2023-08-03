@@ -1,1 +1,35 @@
-<p>login works!</p>
+<div class="container mt-5 col-5">
+  <div class="card login-card bg-dark shadow">
+    <div class="card-body">
+      <form action="/login" method="post" class="col d-flex justify-content-center flex-column">
+        <h2 class="card-title text-center text-light">Inicio de sesión</h2>
+
+        <div>
+          <label for="email" class="form-label">Email:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="email"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-3 text-center">Iniciar sesión</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/user';
+import { User } from '../../interfaces/user';
+import { UpdateUser } from '../../interfaces/updateUser';
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +20,15 @@ export class ServicesService {
     return this.http.get<User>(`${this.BASE_URL}/users/${id}`);
   }
 
-  createUser(user: User) {
-    return this.http.post(`${this.BASE_URL}/users`, user);
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.BASE_URL}/users`, user);
   }
 
-  deleteUser(id: string) {
-    return this.http.delete(`${this.BASE_URL}/users/${id}`);
+  deleteUser(id: string): Observable<User> {
+    return this.http.delete<User>(`${this.BASE_URL}/users/${id}`);
   }
 
-  updateUser(id: string, user: User) {
-    return this.http.patch(`${this.BASE_URL}/users/${id}`, user);
+  updateUser(id: string, user: UpdateUser): Observable<User> {
+    return this.http.put<User>(`${this.BASE_URL}/users/${id}`, user);
   }
 }
