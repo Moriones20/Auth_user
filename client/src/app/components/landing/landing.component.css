@@ -1,0 +1,17 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.landing h1 {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.landing p {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
