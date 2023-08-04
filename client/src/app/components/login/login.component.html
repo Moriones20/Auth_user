@@ -1,4 +1,4 @@
-<div class="container mt-5 col-5">
+<div class="container container-login mt-2">
   <div class="card login-card bg-dark shadow">
     <div
       class="card-body d-flex justify-content-center flex-column align-items-center"
@@ -23,12 +23,16 @@
           <div
             *ngIf="
               loginForm.controls['email'].invalid &&
-              loginForm.controls['email'].touched
+              (loginForm.controls['email'].dirty ||
+                loginForm.controls['email'].touched)
             "
           >
-            <p class="text-danger fs-6 mb-0">
-              Correo electrónico requerido y debe tener un formato válido.
-            </p>
+            <div *ngIf="loginForm.controls['email'].hasError('required')">
+              <p class="text-danger fs-6 mb-0">Email is required</p>
+            </div>
+            <div *ngIf="loginForm.controls['email'].hasError('email')">
+              <p class="text-danger fs-6 mb-0">Invalid email format</p>
+            </div>
           </div>
         </div>
 
@@ -45,10 +49,23 @@
           <div
             *ngIf="
               loginForm.controls['password'].invalid &&
-              loginForm.controls['password'].touched
+              (loginForm.controls['password'].dirty ||
+                loginForm.controls['password'].touched)
             "
           >
-            <p class="text-danger fs-6 mb-0">Contraseña requerida.</p>
+            <div *ngIf="loginForm.controls['password'].hasError('required')">
+              <p class="text-danger fs-6 mb-0">Password is required</p>
+            </div>
+            <div *ngIf="loginForm.controls['password'].hasError('minlength')">
+              <p class="text-danger fs-6 mb-0">
+                Password must be at least 6 characters
+              </p>
+            </div>
+            <div *ngIf="loginForm.controls['password'].hasError('maxlength')">
+              <p class="text-danger fs-6 mb-0">
+                Password can't exceed 20 characters
+              </p>
+            </div>
           </div>
         </div>
 
@@ -60,7 +77,7 @@
           Send
         </button>
       </form>
-      <p class="text-light">- O -</p>
+      <p class="text-white">- o -</p>
       <div role="social">
         <button
           type="button"

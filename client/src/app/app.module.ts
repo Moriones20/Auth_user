@@ -11,6 +11,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialCallbackComponent } from './components/social-callback/social-callback.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { SocialCallbackComponent } from './components/social-callback/social-cal
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

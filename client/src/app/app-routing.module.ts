@@ -9,7 +9,8 @@ import { SocialCallbackComponent } from './components/social-callback/social-cal
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'login/callback', component: SocialCallbackComponent },
+  { path: 'login/success', component: SocialCallbackComponent },
+  // { path: 'login/failure', component: SocialCallbackComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
 ];
