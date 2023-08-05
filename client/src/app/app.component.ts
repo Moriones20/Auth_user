@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TokenService } from './services/auth/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',

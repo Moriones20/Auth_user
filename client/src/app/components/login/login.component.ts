@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { CookieService } from 'ngx-cookie-service';
+import { TokenService } from 'src/app/services/auth/token.service';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +17,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private cookieService: CookieService
+    private tokenService: TokenService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.authService.isLogged && this.router.navigate(['/home']);
+
     this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
     this.loginForm = this.formBuilder.group({
       email: [
@@ -47,7 +49,8 @@ export class LoginComponent implements OnInit {
       this.authService.login(email, password).subscribe({
         next: (resp) => {
           localStorage.setItem('userData', JSON.stringify(resp.user));
-          this.cookieService.set('accessToken', resp.token);
+          this.tokenService.setToken(resp.token);
+          this.authService.isLogged = true;
           this.router.navigate(['/home']);
         },
         error: (err) => {

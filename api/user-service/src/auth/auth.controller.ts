@@ -95,4 +95,10 @@ export class AuthController {
       res.redirect('http://localhost:4200/login/failure');
     }
   }
+
+  @Get('verifyJWT')
+  @UseGuards(AuthGuard('jwt'))
+  verifyJWT() {
+    return this.authService.verifyJWT();
+  }
 }

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/interfaces/user';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   BASE_URL: string = 'http://localhost:3001';
+  isLogged:boolean = false
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   login(email: string, password: string): Observable<any> {
     const body = { email, password };
@@ -21,7 +22,13 @@ export class AuthService {
     return this.http.post<any>(`${this.BASE_URL}/auth/register`, user);
   }
 
-  getJwtToken(): string {
-    return this.cookieService.get('accessToken');
+  isAuthenticated(): Observable<any> {
+    const accessToken = this.tokenService.getToken();
+
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${accessToken}`
+    );
+    return this.http.get(`${this.BASE_URL}/auth/verifyJWT`, { headers });
   }
 }
