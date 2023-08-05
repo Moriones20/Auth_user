@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { TokenService } from 'src/app/services/auth/token.service';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +15,13 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private tokenService: TokenService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    localStorage.getItem('isLoggedIn') === 'true' &&
+      this.router.navigate(['/home']);
+
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

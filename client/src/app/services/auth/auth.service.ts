@@ -9,7 +9,6 @@ import { TokenService } from './token.service';
 })
 export class AuthService {
   BASE_URL: string = 'http://localhost:3001';
-  isLogged:boolean = false
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -30,5 +29,12 @@ export class AuthService {
       `Bearer ${accessToken}`
     );
     return this.http.get(`${this.BASE_URL}/auth/verifyJWT`, { headers });
+  }
+
+  logout(): void {
+    this.tokenService.deleteToken();
+    localStorage.removeItem('userData');
+    console.log('Logout method called');
+    localStorage.setItem('isLoggedIn', false.toString());
   }
 }

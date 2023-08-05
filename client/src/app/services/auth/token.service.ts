@@ -16,4 +16,8 @@ export class TokenService {
   getToken(): string {
     return this.cookieService.get('accessToken');
   }
+
+  deleteToken(): void {
+    this.cookieService.delete('accessToken');
+  }
 }

@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.isLogged && this.router.navigate(['/home']);
+    localStorage.getItem('isLoggedIn') === 'true' &&
+      this.router.navigate(['/home']);
 
     this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
     this.loginForm = this.formBuilder.group({
@@ -50,8 +51,8 @@ export class LoginComponent implements OnInit {
         next: (resp) => {
           localStorage.setItem('userData', JSON.stringify(resp.user));
           this.tokenService.setToken(resp.token);
-          this.authService.isLogged = true;
-          this.router.navigate(['/home']);
+          localStorage.setItem('isLoggedIn', true.toString());
+          window.location.href = '/home';
         },
         error: (err) => {
           alert(err.error.message);
