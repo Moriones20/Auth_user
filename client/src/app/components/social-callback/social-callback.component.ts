@@ -19,7 +19,8 @@ export class SocialCallbackComponent implements OnInit {
         const decodedUserString = decodeURIComponent(this.encodeData);
         this.userData = JSON.parse(decodedUserString);
         localStorage.setItem('userData', JSON.stringify(this.userData));
-        this.router.navigate(['/home']);
+        localStorage.setItem('isLoggedIn', true.toString());
+        window.location.href = '/home';
       },
     });
   }

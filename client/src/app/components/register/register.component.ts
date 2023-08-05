@@ -19,6 +19,9 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    localStorage.getItem('isLoggedIn') === 'true' &&
+      this.router.navigate(['/home']);
+
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
