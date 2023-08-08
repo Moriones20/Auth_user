@@ -28,13 +28,15 @@ export class AuthService {
       'Authorization',
       `Bearer ${accessToken}`
     );
-    return this.http.get(`${this.BASE_URL}/auth/verifyJWT`, { headers });
+
+    return this.http.get(`${this.BASE_URL}/auth/verifyJWT`, {
+      headers,
+      observe: 'response',
+    });
   }
 
   logout(): void {
     this.tokenService.deleteToken();
     localStorage.removeItem('userData');
-    console.log('Logout method called');
-    localStorage.setItem('isLoggedIn', false.toString());
   }
 }

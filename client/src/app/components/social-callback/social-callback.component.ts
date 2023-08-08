@@ -10,7 +10,7 @@ export class SocialCallbackComponent implements OnInit {
   encodeData?: string;
   userData: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe({
@@ -19,7 +19,6 @@ export class SocialCallbackComponent implements OnInit {
         const decodedUserString = decodeURIComponent(this.encodeData);
         this.userData = JSON.parse(decodedUserString);
         localStorage.setItem('userData', JSON.stringify(this.userData));
-        localStorage.setItem('isLoggedIn', true.toString());
         window.location.href = '/home';
       },
     });

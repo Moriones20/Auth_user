@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
         next: (resp) => {
           localStorage.setItem('userData', JSON.stringify(resp.user));
           this.tokenService.setToken(resp.token);
-          localStorage.setItem('isLoggedIn', true.toString());
           window.location.href = '/home';
         },
         error: (err) => {
