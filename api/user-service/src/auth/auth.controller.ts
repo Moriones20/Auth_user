@@ -17,7 +17,7 @@ import { AuthGuard } from '@nestjs/passport';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  expiresIn: number = 23 * 60 * 60;
+  expiresIn: number = 24 * 60 * 60 * 1000;
 
   constructor(private readonly authService: AuthService) {}
 
@@ -47,14 +47,13 @@ export class AuthController {
 
     const { token, user } = await this.authService.registerSocial(socialAuth);
     if (token) {
-      const expirationDate = new Date(Date.now() + this.expiresIn);
       const userString = encodeURIComponent(JSON.stringify(user));
 
       res.cookie('accessToken', token, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',
-        expires: expirationDate,
+        maxAge: this.expiresIn,
       });
       res.redirect(
         'http://localhost:4200/login/success?userData=' + userString,
@@ -79,14 +78,13 @@ export class AuthController {
     };
     const { token, user } = await this.authService.registerSocial(socialAuth);
     if (token) {
-      const expirationDate = new Date(Date.now() + this.expiresIn);
       const userString = encodeURIComponent(JSON.stringify(user));
 
       res.cookie('accessToken', token, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',
-        expires: expirationDate,
+        maxAge: this.expiresIn,
       });
       res.redirect(
         'http://localhost:4200/login/success?userData=' + userString,
