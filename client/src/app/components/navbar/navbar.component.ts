@@ -11,10 +11,21 @@ export class NavbarComponent implements OnInit {
   title: string = 'Auth App';
   isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
+    this.authService.isAuthenticated().subscribe({
+      next: (resp) => {
+        if (resp.status == 200) this.isAuthenticated = true;
+      },
+      error: (err) => {
+        if (err.status == 401) {
+          this.isAuthenticated = false;
+        } else {
+          console.error(err.error);
+        }
+      },
+    });
   }
 
   logout(): void {

@@ -50,9 +50,8 @@ export class AuthController {
       const userString = encodeURIComponent(JSON.stringify(user));
 
       res.cookie('accessToken', token, {
-        httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'lax',
         maxAge: this.expiresIn,
       });
       res.redirect(
@@ -81,9 +80,8 @@ export class AuthController {
       const userString = encodeURIComponent(JSON.stringify(user));
 
       res.cookie('accessToken', token, {
-        httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'lax',
         maxAge: this.expiresIn,
       });
       res.redirect(
