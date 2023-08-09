@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SocialCallbackComponent } from './components/social-callback/social-callback.component';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountComponent } from './components/home/account/account.component';
+import { SocialFailureComponent } from './components/social-callback/social-failure/social-failure.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AccountComponent } from './components/home/account/account.component';
     LandingComponent,
     SocialCallbackComponent,
     AccountComponent,
+    SocialFailureComponent,
   ],
   imports: [
     BrowserModule,

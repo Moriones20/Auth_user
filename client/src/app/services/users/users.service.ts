@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
+import { TokenService } from '../auth/token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicesService {
-  BASE_URL: string = 'http://localhost:3001';
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  constructor(private http: HttpClient) {}
+  BASE_URL: string = 'http://localhost:3001';
+  token: string = this.tokenService.getToken();
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.BASE_URL}/users`);
@@ -17,10 +19,6 @@ export class ServicesService {
 
   getUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.BASE_URL}/users/${id}`);
-  }
-
-  createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.BASE_URL}/users`, user);
   }
 
   deleteUser(id: string): Observable<User> {
