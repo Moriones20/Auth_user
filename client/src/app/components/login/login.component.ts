@@ -22,8 +22,11 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    localStorage.getItem('isLoggedIn') === 'true' &&
-      this.router.navigate(['/home']);
+    this.authService.isAuthenticated().subscribe({
+      next: (resp) => {
+        if (resp.status == 200) this.router.navigate(['/home']);
+      },
+    });
 
     this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
     this.loginForm = this.formBuilder.group({
