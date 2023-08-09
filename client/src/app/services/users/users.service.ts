@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
-import { UpdateUser } from '../../interfaces/updateUser';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +27,7 @@ export class ServicesService {
     return this.http.delete<User>(`${this.BASE_URL}/users/${id}`);
   }
 
-  updateUser(id: string, user: UpdateUser): Observable<User> {
+  updateUser(id: string, user: User): Observable<User> {
     return this.http.put<User>(`${this.BASE_URL}/users/${id}`, user);
   }
 }

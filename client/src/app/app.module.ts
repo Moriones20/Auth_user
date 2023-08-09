@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialCallbackComponent } from './components/social-callback/social-callback.component';
 import { CookieService } from 'ngx-cookie-service';
+import { AccountComponent } from './components/home/account/account.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CookieService } from 'ngx-cookie-service';
     HomeComponent,
     LandingComponent,
     SocialCallbackComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
