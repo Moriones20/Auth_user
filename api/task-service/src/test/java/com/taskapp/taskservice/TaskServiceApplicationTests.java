@@ -1,10 +1,10 @@
-package com.TodoApp_UserAuth.todoservice;
+package com.taskapp.taskservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TodoServiceApplicationTests {
+class TaskServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
