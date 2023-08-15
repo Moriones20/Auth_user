@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { SocialAuthDto } from './dto/social-auth.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('auth')
@@ -93,6 +93,7 @@ export class AuthController {
   }
 
   @Get('verifyJWT')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   verifyJWT() {
     return this.authService.verifyJWT();
