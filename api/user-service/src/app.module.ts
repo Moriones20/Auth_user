@@ -11,7 +11,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost/authuser'),
+    MongooseModule.forRoot('mongodb://localhost/taskapp'),
     AuthModule,
     UsersModule,
   ],
