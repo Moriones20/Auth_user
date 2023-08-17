@@ -1,39 +1,24 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
-import { LandingComponent } from './components/landing/landing.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { SocialCallbackComponent } from './components/social-callback/social-callback.component';
-import { CookieService } from 'ngx-cookie-service';
-import { AccountComponent } from './components/home/account/account.component';
-import { SocialFailureComponent } from './components/social-callback/social-failure/social-failure.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
-    LandingComponent,
-    SocialCallbackComponent,
-    AccountComponent,
-    SocialFailureComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
-  providers: [CookieService],
-  bootstrap: [AppComponent],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
