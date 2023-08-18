@@ -1,1 +1,113 @@
-<p>login-page works!</p>
+<div class="h-screen flex justify-center items-center">
+  <div
+    class="bg-[#34373d] w-96 flex flex-col items-center p-6 rounded-md shadow-xl"
+  >
+    <div class="w-full">
+      <a routerLink="/">
+        <img
+          class="h-6 invert hover:invert-[.75]"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACGElEQVR4nO3ZTYhNYRzH8c+YhfIydTNKYkXERqMoGzUikViwsLKhbLwUyYKiUJOVjYWNhY1kQzKxsfNSSlKSSey81CzkLe9XJ8+t0+nOzD3n3jNzHu63fttznu+9//P8z/85dOkSFQv8A6zDGxHTi5P4hbpImYvbQaCR6FiL1xmJqER6cBDfm0hEIzIHw2MIRCOyCq8mkKjHUErfWpCorEgfrrYoUFmRlXiRU6JyIvvwtYBEkk9hW36GO7iAI1iPWZNZSlcKCrSSH3iIY1hclsQKPC9RolnuYjumdUpiD75MskQ6I9jajsBMXJpCgWyGi4wCS/GkAovPZhRb8ogsx9MKLLxZfuNQzKVVz+R03jLbhc8VWHi9SY4W2X5HKlpmO/LKzMblCiy+nslHLDHJryhl5V7RxpnMHy8L3HAG5mMZ1mBbqPOLeNDms7hXQWq4nvNmEzEdgziDRwV6TF87g9XhcWb0vCJZBnAe71u8/gkVH3VrGGrhnW80/Ktt0Y9bJYk0WNjkrCybnTpAsnMcx8+SRBrlfGCcc4JkYOsYg+GstwyRBhvwYYwmuUgHmRd+nbJEElaHhpiV2a+EQ+xTJR9ibwpjclrkRpmfFd6WdXF/n8vsIUfbu9dUfOjpxf2MTNISomQgVcJJdouYaymRcyJmY0rkpojpSQ2Aj0XO2SDyTuRsDiJJo4ya/iCSNMnoqYV06dLlf+APek2XLcDc4fAAAAAASUVORK5CYII="
+        />
+      </a>
+    </div>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col items-center w-full"
+    >
+      <h2 class="mb-4 text-2xl font-bold">Login</h2>
+
+      <div class="mb-4 w-full">
+        <input
+          type="email"
+          class="mt-1 p-2 w-full border rounded-md text-black"
+          id="email"
+          formControlName="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+        <div
+          *ngIf="
+            loginForm.controls['email'].invalid &&
+            (loginForm.controls['email'].dirty ||
+              loginForm.controls['email'].touched)
+          "
+        >
+          <div *ngIf="loginForm.controls['email'].hasError('required')">
+            <p class="text-red-600 text-xs">Email is required</p>
+          </div>
+          <div *ngIf="loginForm.controls['email'].hasError('email')">
+            <p class="text-red-600 text-xs">Invalid email format</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4 w-full">
+        <input
+          type="password"
+          class="mt-1 p-2 w-full border rounded-md text-black"
+          id="password"
+          formControlName="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <div
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            (loginForm.controls['password'].dirty ||
+              loginForm.controls['password'].touched)
+          "
+        >
+          <div *ngIf="loginForm.controls['password'].hasError('required')">
+            <p class="text-red-600 text-xs">Password is required</p>
+          </div>
+          <div *ngIf="loginForm.controls['password'].hasError('minlength')">
+            <p class="text-red-600 text-xs">
+              Password must be at least 6 characters
+            </p>
+          </div>
+          <div *ngIf="loginForm.controls['password'].hasError('maxlength')">
+            <p class="text-red-600 text-xs">
+              Password can't exceed 20 characters
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid"
+        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-full"
+      >
+        Send
+      </button>
+    </form>
+
+    <a
+      routerLink="/auth/login"
+      class="text-blue-500 hover:text-blue-600 active:text-blue-700 mt-2"
+      >Create an account</a
+    >
+
+    <p class="my-4">- o -</p>
+
+    <div class="flex flex-col w-full">
+      <button
+        type="button"
+        (click)="loginGoogle()"
+        class="bg-[#d12d2d] text-white py-2 px-4 mb-4 rounded-md hover:bg-[#aa2424]"
+      >
+        Login with Google
+      </button>
+      <button
+        type="button"
+        (click)="loginFacebook()"
+        class="bg-[#3b5998] text-white py-2 px-4 mb-4 rounded-md hover:bg-[#2d4373]"
+      >
+        Login with Facebook
+      </button>
+    </div>
+  </div>
+</div>
