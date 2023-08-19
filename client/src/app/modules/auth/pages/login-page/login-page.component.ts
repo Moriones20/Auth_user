@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TokenService } from '@shared/services/token.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,10 +15,16 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
   userData: any;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
     this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
+
     this.loginForm = this.formBuilder.group({
       email: [
         this.userData.email || '',
@@ -37,8 +45,18 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
+      const user = { email, password };
 
-      console.log(`${email} and ${password}`);
+      this.authService.login(user).subscribe({
+        next: (resp) => {
+          localStorage.setItem('userData', JSON.stringify(resp.user));
+          this.tokenService.setToken(resp.token);
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          alert(err.error.message);
+        },
+      });
     }
   }
 
