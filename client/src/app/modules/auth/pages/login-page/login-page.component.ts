@@ -37,6 +37,7 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
+      const user = { email, password };
 
       console.log(`${email} and ${password}`);
     }
