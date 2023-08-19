@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,7 +13,11 @@ export class RegisterPageComponent implements OnInit {
   private readonly URL = environment.user_service;
   registerForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -34,8 +39,21 @@ export class RegisterPageComponent implements OnInit {
       const name = this.registerForm.value.name;
       const email = this.registerForm.value.email;
       const password = this.registerForm.value.password;
+      const user = { name, email, password };
 
-      console.log(`${name} and ${password} and ${email}`);
+      this.authService.register(user).subscribe({
+        next: (resp) => {
+          if (resp.statusCode == 201) {
+            localStorage.setItem('userData', JSON.stringify(resp.user));
+            this.router.navigate(['/auth/login']);
+          } else {
+            alert(resp.message);
+          }
+        },
+        error: (err) => {
+          alert(err.error.message);
+        },
+      });
     }
   }
 
