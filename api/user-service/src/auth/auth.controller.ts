@@ -55,7 +55,7 @@ export class AuthController {
         maxAge: this.expiresIn,
       });
       res.redirect(
-        'http://localhost:4200/login/success?userData=' + userString,
+        'http://localhost:4200/auth/callback?userData=' + userString,
       );
     } else {
       res.redirect('http://localhost:4200/login/failure');
@@ -85,7 +85,7 @@ export class AuthController {
         maxAge: this.expiresIn,
       });
       res.redirect(
-        'http://localhost:4200/login/success?userData=' + userString,
+        'http://localhost:4200/auth/callback?userData=' + userString,
       );
     } else {
       res.redirect('http://localhost:4200/login/failure');
