@@ -1,8 +1,7 @@
 import { User } from './user.interface';
 
-export interface loginState {
+export interface registerState {
   error: string;
   loading: boolean;
-  isAuth: boolean;
   user: User;
 }
