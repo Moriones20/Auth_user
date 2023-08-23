@@ -22,5 +22,6 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.store.dispatch(logoutDone());
     this.authService.logout();
+    window.location.href = '/';
   }
 }
