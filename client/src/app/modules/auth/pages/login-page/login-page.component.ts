@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { loadingAuth } from '@store/actions/auth.actions';
 import { loadingLogin } from '@store/actions/login.actions';
 import { selectIsAuth, selectLoading } from '@store/selectors/login.selectors';
 import { Observable } from 'rxjs';
@@ -26,10 +27,16 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loading$ = this.store.select(selectLoading);
+
+    this.store.dispatch(loadingAuth());
     this.isAuth$ = this.store.select(selectIsAuth);
-    if (this.isAuth$) {
-      this.router.navigate(['/home']);
-    }
+
+    this.isAuth$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/home']);
+      }
+    });
 
     this.userData = JSON.parse(localStorage.getItem('userData') || '{}');
 
@@ -50,7 +57,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading$ = this.store.select(selectLoading);
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
