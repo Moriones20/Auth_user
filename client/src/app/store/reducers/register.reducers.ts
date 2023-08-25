@@ -1,4 +1,4 @@
-import { registerState } from '@core/models/register-state.interface';
+import { registerState } from '@core/models/user/register-state.interface';
 import { createReducer, on } from '@ngrx/store';
 import {
   loadingRegister,
