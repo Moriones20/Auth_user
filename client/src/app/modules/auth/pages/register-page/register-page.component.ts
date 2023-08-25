@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadingAuth } from '@store/actions/auth.actions';
 import { loadingRegister } from '@store/actions/register.actions';
-import { selectIsAuth } from '@store/selectors/login.selectors';
+import { selectIsAuth } from '@store/selectors/auth.selectors';
 import { selectLoading } from '@store/selectors/register.selectors';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';

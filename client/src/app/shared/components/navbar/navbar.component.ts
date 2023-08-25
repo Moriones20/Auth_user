@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { Store } from '@ngrx/store';
 import { logoutDone } from '@store/actions/logout.actions';
-import { selectIsAuth } from '@store/selectors/login.selectors';
+import { selectIsAuth } from '@store/selectors/auth.selectors';
 import { Observable } from 'rxjs';
 
 @Component({
