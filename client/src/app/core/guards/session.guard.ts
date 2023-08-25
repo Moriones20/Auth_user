@@ -8,7 +8,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { selectIsAuth } from '@store/selectors/login.selectors';
+import { selectIsAuth } from '@store/selectors/auth.selectors';
 
 @Injectable({
   providedIn: 'root',

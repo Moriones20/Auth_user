@@ -1,4 +1,4 @@
-import { authState } from '@core/models/auth-state.interface';
+import { authState } from '@core/models/user/auth-state.interface';
 import { createReducer, on } from '@ngrx/store';
 import {
   loadingLogin,

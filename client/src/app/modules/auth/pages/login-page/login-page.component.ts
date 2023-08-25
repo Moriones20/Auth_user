@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '@core/models/user/user.interface';
 import { Store } from '@ngrx/store';
 import { loadingAuth } from '@store/actions/auth.actions';
 import { loadingLogin } from '@store/actions/login.actions';
-import { selectIsAuth, selectLoading } from '@store/selectors/login.selectors';
+import { selectIsAuth, selectLoading } from '@store/selectors/auth.selectors';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +19,7 @@ export class LoginPageComponent implements OnInit {
   loading$: Observable<boolean> = new Observable();
   isAuth$: Observable<boolean> = new Observable();
   loginForm: FormGroup = new FormGroup({});
-  userData: any;
+  userData: User | any;
 
   constructor(
     private formBuilder: FormBuilder,

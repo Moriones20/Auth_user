@@ -11,6 +11,7 @@ import { ROOT_REDUCERS } from '@store/app.state';
 import { LoginEffects } from '@store/effects/login.effects';
 import { registerEffects } from '@store/effects/register.effects';
 import { AuthEffects } from '@store/effects/auth.effects';
+import { taskEffects } from '@store/effects/task.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,12 @@ import { AuthEffects } from '@store/effects/auth.effects';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(ROOT_REDUCERS),
-    EffectsModule.forRoot([LoginEffects, registerEffects, AuthEffects]),
+    EffectsModule.forRoot([
+      LoginEffects,
+      registerEffects,
+      AuthEffects,
+      taskEffects,
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],

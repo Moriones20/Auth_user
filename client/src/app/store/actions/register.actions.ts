@@ -1,4 +1,4 @@
-import { User } from '@core/models/user.interface';
+import { User } from '@core/models/user/user.interface';
 import { createAction, props } from '@ngrx/store';
 
 export const loadingRegister = createAction(

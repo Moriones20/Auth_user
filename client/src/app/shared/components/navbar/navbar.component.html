@@ -2,10 +2,12 @@
   class="absolute left-0 top-0 z-10 bg-primary_dark w-screen dark:shadow-xl py-4 px-6"
 >
   <div class="flex justify-between">
-    <img
-      class="filter invert h-12"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABb0lEQVR4nO2aO07DQBRFT5U+iPBZAB1sjIZNEBIkWAEVPewg6VISIUAIGspYIogGGlI9FGksDRYGPD/PhDnSq2Jf36N5sptA5gtHwAKQhrO8p09ELAwkyvnwXa4DHAPFDyVKTCX+mjMDhqpTY4YOCrgSETUDE5EiQpHCRMRlAZc5jVlpkdBvLQkt0rf4jhzGJOILySIa+UQcInm1NPJq/afVWgcugXdgAuykKjKu5E5SFdkD5lruW0oiPWAE7H4jc5GKSA+4VRnPFZmx+t1bB1ciukQ5cyURpIM4CFm+nW5qskaBOmAb0gWuanIegK0URLoOJFoXcSXRqohLidZEfpPYDtDBOsSHRHCRNeC65vp7YNPk4W2I7Ndc+2hxEq2InHmSCC4y9SQRXOQJuAPOgQNgw+Rhlh38h1giWUQjn4hDJK+WRl6tFFZLIpjGrIzILILSUplXE5FBBMWlMqcmIh0lE8PJvAAnpn/hyGQw5xPgilAZrdIixQAAAABJRU5ErkJggg=="
-    />
+    <a routerLink="/">
+      <img
+        class="filter invert h-8"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABb0lEQVR4nO2aO07DQBRFT5U+iPBZAB1sjIZNEBIkWAEVPewg6VISIUAIGspYIogGGlI9FGksDRYGPD/PhDnSq2Jf36N5sptA5gtHwAKQhrO8p09ELAwkyvnwXa4DHAPFDyVKTCX+mjMDhqpTY4YOCrgSETUDE5EiQpHCRMRlAZc5jVlpkdBvLQkt0rf4jhzGJOILySIa+UQcInm1NPJq/afVWgcugXdgAuykKjKu5E5SFdkD5lruW0oiPWAE7H4jc5GKSA+4VRnPFZmx+t1bB1ciukQ5cyURpIM4CFm+nW5qskaBOmAb0gWuanIegK0URLoOJFoXcSXRqohLidZEfpPYDtDBOsSHRHCRNeC65vp7YNPk4W2I7Ndc+2hxEq2InHmSCC4y9SQRXOQJuAPOgQNgw+Rhlh38h1giWUQjn4hDJK+WRl6tFFZLIpjGrIzILILSUplXE5FBBMWlMqcmIh0lE8PJvAAnpn/hyGQw5xPgilAZrdIixQAAAABJRU5ErkJggg=="
+      />
+    </a>
     <div class="flex items-center cursor-pointer space-x-3 text-lg">
       <a routerLink="/auth/login" *ngIf="!(isAuth$ | async)">Login</a>
       <a routerLink="/auth/register" *ngIf="!(isAuth$ | async)">Register</a>
