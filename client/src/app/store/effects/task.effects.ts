@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TaskService } from '@modules/home/services/task.service';
+import { TaskService } from '@shared/services/tasks/task.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { createTask, loadingTask } from '@store/actions/task.actions';
