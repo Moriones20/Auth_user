@@ -1,58 +1,16 @@
 <app-navbar></app-navbar>
-<main class="flex h-screen w-screen justify-center items-center gap-16">
-  <form
-    [formGroup]="taskForm"
-    (ngSubmit)="onSubmit()"
-    class="bg-[#121820] dark:shadow-xl p-6 rounded-lg"
-  >
-    <h1 class="flex justify-center">Add task</h1>
-    <div class="flex flex-col">
-      <div>
-        <input
-          type="text"
-          placeholder="Title"
-          id="title"
-          formControlName="title"
-          required
-          class="w-full text-black"
-        />
-        <div
-          *ngIf="
-            taskForm.controls['title'].invalid &&
-            (taskForm.controls['title'].dirty ||
-              taskForm.controls['title'].touched)
-          "
-        >
-          <div *ngIf="taskForm.controls['title'].hasError('required')">
-            <p class="text-red-600 text-xs">Title is required</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <textarea
-          id="description"
-          name="description"
-          formControlName="description"
-          placeholder="Description"
-          required
-          cols="40"
-          rows="4"
-          class="text-black"
-        ></textarea>
-      </div>
-      <div>
-        <input type="checkbox" id="done" formControlName="done" />
-        <label for="done">Done</label>
-      </div>
-      <button
-        type="submit"
-        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-full"
-      >
-        Create
-      </button>
-    </div>
-  </form>
-  <div class="">
-    <h1 class="flex justify-center">Tasks</h1>
+<main
+  class="flex flex-col h-screen w-screen justify-center items-center gap-10"
+>
+  <div class="mt-[106px]">
+    <h1 class="text-3xl font-bold">Welcome {{ userData.name }}!</h1>
+  </div>
+  <div class="flex flex-grow gap-16">
+    <section>
+      <app-form-create-task></app-form-create-task>
+    </section>
+    <section>
+      <app-show-tasks></app-show-tasks>
+    </section>
   </div>
 </main>
