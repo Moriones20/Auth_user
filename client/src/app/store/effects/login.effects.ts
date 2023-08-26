@@ -4,7 +4,7 @@ import { exhaustMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { loadingLogin, loginDone } from '@store/actions/login.actions';
-import { TokenService } from '@shared/services/token.service';
+import { TokenService } from '@shared/services/token/token.service';
 import { Store } from '@ngrx/store';
 
 @Injectable()
