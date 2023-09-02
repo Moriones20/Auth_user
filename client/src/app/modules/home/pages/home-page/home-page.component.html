@@ -5,11 +5,11 @@
   <div class="mt-[106px]">
     <h1 class="text-3xl font-bold">Welcome {{ userData.name }}!</h1>
   </div>
-  <div class="flex flex-grow gap-16">
-    <section>
+  <div class="flex flex-grow gap-16 w-full">
+    <section class="flex justify-end w-1/2">
       <app-form-create-task></app-form-create-task>
     </section>
-    <section>
+    <section class="flex w-1/2">
       <app-show-tasks></app-show-tasks>
     </section>
   </div>

@@ -1,5 +1,64 @@
-<div>
-  <ul>
-    <li *ngFor="let task of tasks">{{ task.title }}</li>
+<div class="flex flex-col justify-between gap-6 h-[330px] w-fit">
+  <ul class="">
+    <li
+      class="flex justify-between bg-[#121820] shadow-xl py-2 px-6 rounded-lg mb-3 cursor-pointer"
+      (click)="editTask(task.id!)"
+      *ngFor="
+        let task of tasks
+          | paginate : { itemsPerPage: pageSize, currentPage: currentPage }
+      "
+    >
+      <div class="flex flex-col">
+        <h2 class="text-lg font-semibold">{{ task.title }}</h2>
+        <p class="truncate">{{ task.description }}</p>
+      </div>
+      <div class="flex flex-col items-end h-full justify-between">
+        <p>Done: {{ task.done }}</p>
+        <button
+          (click)="deleteTask($event, task.id!)"
+          class="bg-red-600 p-1 rounded hover:bg-red-700 duration-150 active:scale-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="20"
+            height="20"
+            viewBox="0,0,256,256"
+            style="fill: #ffffff"
+          >
+            <g
+              fill="#ffffff"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              stroke-linecap="butt"
+              stroke-linejoin="miter"
+              stroke-miterlimit="10"
+              stroke-dasharray=""
+              stroke-dashoffset="0"
+              font-family="none"
+              font-weight="none"
+              font-size="none"
+              text-anchor="none"
+              style="mix-blend-mode: normal"
+            >
+              <g transform="scale(8.53333,8.53333)">
+                <path
+                  d="M13,3c-0.26757,-0.00363 -0.52543,0.10012 -0.71593,0.28805c-0.1905,0.18793 -0.29774,0.44436 -0.29774,0.71195h-5.98633c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h18c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-5.98633c0,-0.26759 -0.10724,-0.52403 -0.29774,-0.71195c-0.1905,-0.18793 -0.44836,-0.29168 -0.71593,-0.28805zM6,8v16c0,1.105 0.895,2 2,2h14c1.105,0 2,-0.895 2,-2v-16z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </li>
   </ul>
+
+  <pagination-controls
+    (pageChange)="onPageChange($event)"
+    (pageBoundsCorrection)="onPageChange($event)"
+    [maxSize]="5"
+    class="my-pagination"
+  ></pagination-controls>
 </div>
