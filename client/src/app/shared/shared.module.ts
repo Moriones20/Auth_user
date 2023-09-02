@@ -6,10 +6,16 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormCreateTaskComponent } from './components/form-create-task/form-create-task.component';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [NavbarComponent, FormCreateTaskComponent, ShowTasksComponent],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+  ],
   exports: [NavbarComponent, FormCreateTaskComponent, ShowTasksComponent],
   providers: [CookieService],
 })

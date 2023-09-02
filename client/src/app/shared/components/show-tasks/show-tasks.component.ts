@@ -12,8 +12,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./show-tasks.component.css'],
 })
 export class ShowTasksComponent implements OnInit {
-  tasks: Task[] | undefined;
+  tasks: Task[] = [];
   loading$: Observable<boolean> = new Observable();
+  pageSize: number = 3;
+  currentPage: number = 1;
 
   constructor(private taskService: TaskService, private store: Store<any>) {}
 
@@ -32,5 +34,18 @@ export class ShowTasksComponent implements OnInit {
         });
       }
     });
+  }
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+  editTask(id: string) {
+    console.log('Editando tarea ' + id);
+  }
+
+  deleteTask(event: Event, id: string) {
+    event.stopPropagation();
+    console.log('Borrando tarea ' + id);
   }
 }
