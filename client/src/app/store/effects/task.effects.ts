@@ -2,27 +2,70 @@ import { Injectable } from '@angular/core';
 import { TaskService } from '@shared/services/tasks/task.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { createTask, loadingTask } from '@store/actions/task.actions';
+import {
+  createTask,
+  deleteTask,
+  editTask,
+  failureCreateTask,
+  failureDeleteTask,
+  failureEditTask,
+  loadingTask,
+} from '@store/actions/task.actions';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 
 @Injectable()
-export class taskEffects {
-  loadingTask$ = createEffect(() => {
+export class TaskEffects {
+  createTask$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loadingTask),
+      ofType(createTask),
       exhaustMap((action) => {
         const { task } = action;
+        this.store.dispatch(loadingTask());
         return this.taskService.createTask(task).pipe(
           map((resp) => {
-            this.store.dispatch(loadingTask({ task: resp.task }));
-            return createTask();
+            return createTask({ task: resp.task });
           }),
           catchError((err) => {
             console.error(err.error);
-            return of({
-              type: '[Task] failure task',
-              error: err.error.message,
-            });
+            return of(failureCreateTask({ error: err.error.message }));
+          })
+        );
+      })
+    );
+  });
+
+  editTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editTask),
+      exhaustMap((action) => {
+        const { task } = action;
+        this.store.dispatch(loadingTask());
+        return this.taskService.updateTask(task).pipe(
+          map((resp) => {
+            return editTask({ task });
+          }),
+          catchError((err) => {
+            console.error(err.error);
+            return of(failureEditTask({ error: err.error.message }));
+          })
+        );
+      })
+    );
+  });
+
+  deleteTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteTask),
+      exhaustMap((action) => {
+        const { id } = action;
+        this.store.dispatch(loadingTask());
+        return this.taskService.deleteTask(id).pipe(
+          map((resp) => {
+            return deleteTask({ id });
+          }),
+          catchError((err) => {
+            console.error(err.error);
+            return of(failureDeleteTask({ error: err.error.message }));
           })
         );
       })

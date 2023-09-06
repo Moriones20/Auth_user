@@ -2,12 +2,16 @@ import { taskState } from '@core/models/task/taskState.interface';
 import { createReducer, on } from '@ngrx/store';
 import {
   createTask,
-  failureTask,
+  deleteTask,
+  editTask,
+  failureCreateTask,
+  failureDeleteTask,
+  failureEditTask,
   loadingTask,
 } from '@store/actions/task.actions';
 
 export const initialState: taskState = {
-  error: '',
+  message: '',
   loading: false,
   task: {
     id: '',
@@ -22,13 +26,35 @@ export const initialState: taskState = {
 
 export const taskReducer = createReducer(
   initialState,
-  on(loadingTask, (state, { task }) => {
-    return { ...state, task, loading: true };
+  on(loadingTask, (state) => {
+    return { ...state, loading: true, message: '' };
   }),
-  on(createTask, (state) => {
-    return { ...state, loading: false, error: '' };
+
+  //CREATE
+  on(createTask, (state, { task }) => {
+    return { ...state, task, loading: false, message: 'Created successful' };
   }),
-  on(failureTask, (state, { error }) => {
-    return { ...state, loading: false, error: error };
+  on(failureCreateTask, (state, { error }) => {
+    return { ...state, loading: false, message: error };
+  }),
+
+  //EDIT
+  on(editTask, (state, { task }) => {
+    return { ...state, task, loading: false, message: 'Edit successful' };
+  }),
+  on(failureEditTask, (state, { error }) => {
+    return { ...state, loading: false, message: error };
+  }),
+
+  //DELETE
+  on(deleteTask, (state, { id }) => {
+    return {
+      ...state,
+      loading: false,
+      message: 'Deleted successful',
+    };
+  }),
+  on(failureDeleteTask, (state, { error }) => {
+    return { ...state, loading: false, message: error };
   })
 );

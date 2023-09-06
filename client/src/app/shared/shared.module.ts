@@ -7,9 +7,10 @@ import { FormCreateTaskComponent } from './components/form-create-task/form-crea
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 
 @NgModule({
-  declarations: [NavbarComponent, FormCreateTaskComponent, ShowTasksComponent],
+  declarations: [NavbarComponent, FormCreateTaskComponent, ShowTasksComponent, EditTaskComponent],
   imports: [
     CommonModule,
     RouterModule,

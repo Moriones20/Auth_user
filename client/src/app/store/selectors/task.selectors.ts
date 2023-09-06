@@ -9,9 +9,9 @@ export const selectLoading = createSelector(
   (state: taskState) => state.loading
 );
 
-export const selectError = createSelector(
+export const selectMessage = createSelector(
   selectTask,
-  (state: taskState) => state.error
+  (state: taskState) => state.message
 );
 
 export const selectATask = createSelector(

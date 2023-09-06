@@ -1,7 +1,7 @@
 import { Task } from './task.interface';
 
 export interface taskState {
-  error: string;
+  message: string;
   loading: boolean;
   task: Task;
 }
