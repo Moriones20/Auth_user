@@ -2,7 +2,7 @@
   <ul class="">
     <li
       class="flex justify-between bg-[#121820] shadow-xl py-2 px-6 rounded-lg mb-3 cursor-pointer"
-      (click)="toggleModal(task.id!)"
+      (click)="toggleModal(task)"
       *ngFor="
         let task of tasks
           | paginate : { itemsPerPage: pageSize, currentPage: currentPage }
@@ -62,8 +62,9 @@
     class="my-pagination"
   ></pagination-controls>
 
-  <div
+  <app-edit-task
+    [(showModal)]="showModal"
+    [task]="task"
     *ngIf="showModal"
-    class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
-  ></div>
+  ></app-edit-task>
 </div>

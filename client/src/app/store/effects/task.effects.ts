@@ -5,8 +5,10 @@ import { Store } from '@ngrx/store';
 import {
   createTask,
   deleteTask,
+  editTask,
   failureCreateTask,
   failureDeleteTask,
+  failureEditTask,
   loadingTask,
 } from '@store/actions/task.actions';
 import { catchError, exhaustMap, map, of } from 'rxjs';
@@ -26,6 +28,25 @@ export class TaskEffects {
           catchError((err) => {
             console.error(err.error);
             return of(failureCreateTask({ error: err.error.message }));
+          })
+        );
+      })
+    );
+  });
+
+  editTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editTask),
+      exhaustMap((action) => {
+        const { task } = action;
+        this.store.dispatch(loadingTask());
+        return this.taskService.updateTask(task).pipe(
+          map((resp) => {
+            return editTask({ task });
+          }),
+          catchError((err) => {
+            console.error(err.error);
+            return of(failureEditTask({ error: err.error.message }));
           })
         );
       })

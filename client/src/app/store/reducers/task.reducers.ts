@@ -3,8 +3,10 @@ import { createReducer, on } from '@ngrx/store';
 import {
   createTask,
   deleteTask,
+  editTask,
   failureCreateTask,
   failureDeleteTask,
+  failureEditTask,
   loadingTask,
 } from '@store/actions/task.actions';
 
@@ -37,6 +39,12 @@ export const taskReducer = createReducer(
   }),
 
   //EDIT
+  on(editTask, (state, { task }) => {
+    return { ...state, task, loading: false, message: 'Edit successful' };
+  }),
+  on(failureEditTask, (state, { error }) => {
+    return { ...state, loading: false, message: error };
+  }),
 
   //DELETE
   on(deleteTask, (state, { id }) => {
