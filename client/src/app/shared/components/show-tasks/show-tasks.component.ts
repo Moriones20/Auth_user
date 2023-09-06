@@ -3,7 +3,8 @@ import { Task } from '@core/models/task/task.interface';
 import { Store } from '@ngrx/store';
 import { taskFilter } from '@shared/helper/taskFilter';
 import { TaskService } from '@shared/services/tasks/task.service';
-import { selectLoading } from '@store/selectors/task.selectors';
+import { deleteTask } from '@store/actions/task.actions';
+import { selectLoading, selectMessage } from '@store/selectors/task.selectors';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,6 +17,7 @@ export class ShowTasksComponent implements OnInit {
   loading$: Observable<boolean> = new Observable();
   pageSize: number = 3;
   currentPage: number = 1;
+  showModal = false;
 
   constructor(private taskService: TaskService, private store: Store<any>) {}
 
@@ -40,12 +42,13 @@ export class ShowTasksComponent implements OnInit {
     this.currentPage = pageNumber;
   }
 
-  editTask(id: string) {
-    console.log('Editando tarea ' + id);
+  toggleModal(id: string) {
+    this.showModal = !this.showModal;
+    console.log(this.showModal);
   }
 
   deleteTask(event: Event, id: string) {
     event.stopPropagation();
-    console.log('Borrando tarea ' + id);
+    this.store.dispatch(deleteTask({ id }));
   }
 }

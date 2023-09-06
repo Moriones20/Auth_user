@@ -11,7 +11,7 @@ import { ROOT_REDUCERS } from '@store/app.state';
 import { LoginEffects } from '@store/effects/login.effects';
 import { registerEffects } from '@store/effects/register.effects';
 import { AuthEffects } from '@store/effects/auth.effects';
-import { taskEffects } from '@store/effects/task.effects';
+import { TaskEffects } from '@store/effects/task.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +24,7 @@ import { taskEffects } from '@store/effects/task.effects';
       LoginEffects,
       registerEffects,
       AuthEffects,
-      taskEffects,
+      TaskEffects,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
