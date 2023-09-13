@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+<section class="flex flex-col h-screen w-screen justify-center items-center">
+  <div
+    class="bg-[#121820] w-96 flex flex-col items-center p-6 rounded-md shadow-xl"
+  >
+    <form
+      [formGroup]="editForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col items-center w-full"
+    >
+      <h2 class="mb-6 text-2xl font-bold">Profile</h2>
+
+      <div class="mb-4 w-full">
+        <input
+          type="email"
+          class="mt-1 p-2 w-full border rounded-md text-black"
+          id="name"
+          formControlName="name"
+          name="name"
+          placeholder="Name"
+          required
+        />
+        <div
+          *ngIf="
+            editForm.controls['name'].invalid &&
+            (editForm.controls['name'].dirty ||
+              editForm.controls['name'].touched)
+          "
+        >
+          <div *ngIf="editForm.controls['name'].hasError('required')">
+            <p class="text-red-600 text-xs">Name is required</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4 w-full">
+        <input
+          type="password"
+          class="mt-1 p-2 w-full border rounded-md text-black"
+          id="password"
+          formControlName="password"
+          name="password"
+          placeholder="Password"
+        />
+        <div
+          *ngIf="
+            editForm.controls['password'].invalid &&
+            (editForm.controls['password'].dirty ||
+              editForm.controls['password'].touched)
+          "
+        >
+          <div *ngIf="editForm.controls['password'].hasError('minlength')">
+            <p class="text-red-600 text-xs">
+              Password must be at least 6 characters
+            </p>
+          </div>
+          <div *ngIf="editForm.controls['password'].hasError('maxlength')">
+            <p class="text-red-600 text-xs">
+              Password can't exceed 20 characters
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-6 w-full">
+        <input
+          type="password"
+          class="mt-1 p-2 w-full border rounded-md text-black"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          name="confirmPassword"
+          placeholder="Password"
+        />
+        <div *ngIf="!passwordMatched">
+          <p class="text-red-600 text-xs">The passwords don't match</p>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="editForm.invalid"
+        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Edit
+      </button>
+    </form>
+  </div>
+</section>
