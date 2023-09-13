@@ -11,7 +11,7 @@
     <div class="flex items-center cursor-pointer space-x-3 text-lg">
       <a routerLink="/auth/login" *ngIf="!(isAuth$ | async)">Login</a>
       <a routerLink="/auth/register" *ngIf="!(isAuth$ | async)">Register</a>
-      <a routerLink="/profile" *ngIf="isAuth$ | async">Dashboard</a>
+      <a routerLink="/profile" *ngIf="isAuth$ | async">Profile</a>
       <a routerLink="/home" *ngIf="isAuth$ | async">Home</a>
       <a (click)="logout()" *ngIf="isAuth$ | async">Logout</a>
     </div>
